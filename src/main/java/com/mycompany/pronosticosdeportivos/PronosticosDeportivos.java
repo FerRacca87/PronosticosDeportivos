@@ -33,12 +33,15 @@ public class PronosticosDeportivos {
                     return;//Finaliza el programa
                 }
 
+                /*Crea equipos con los datos del archivo resultados
+                y con los equipos y los goles crea el partido*/
                 Equipo equipo1 = new Equipo(datos[1]);
                 Equipo equipo2 = new Equipo(datos[4]);
                 Integer golesEquipo1 = 0;
                 Integer golesEquipo2 = 0;
                 
-               try {
+               //Valida que los goles sean numeros enteros
+                try {
                     golesEquipo1 = Integer.valueOf(datos[2]);
                     golesEquipo2 = Integer.valueOf(datos[3]);
                 } catch (NumberFormatException exception) {
@@ -52,6 +55,11 @@ public class PronosticosDeportivos {
                
 
                 Ronda ronda = new Ronda(numeroRonda);
+                /* Aca falta crear las rondas cuando el numero de ronda cambia en el archivo
+                hay que usar un metodo, agregar las rondas que se crean al ArrayList de rondas
+                y si la ronda ya esta creada, traerla para asignarle el otro partido
+                */
+                
 
                 partidos.add(partido);
                 
@@ -65,11 +73,21 @@ public class PronosticosDeportivos {
 
                 String[] datos = linea.split(",");
 
+                /*FALTA CREAR EL METODO PARA AGREGAR UN NUEVO OBJETO PERSONA CUANDO NO ESTE CREADO
+                Y EN CASO QUE LA PERSONA YA ESTE CREADA, TRAERLA PARA ASIGNARLE UN NUEVO PRONOSTICO
+                HAY QUE AGREGAR DESPUES EL PRONOSTICO A LA LISTA DE PRONOSTICOS DE LA CLASE PERSONA
+                */
                 Persona persona = new Persona(datos[0]);
 
-                Pronostico pronostico = new Pronostico();
-                pronostico.buscarPartido(partidos, datos);
+                /*Busca el partido que coincida con los datos del pronostico y lo trae
+               `para asignarlo al nuevo objeto pronostico
+                */
+                Partido partido = Pronostico.buscarPartidoPorNombreEquipos(partidos, datos);
+                ResultadoEnum resultado = Pronostico.resultadoPronostico(datos);
+                Pronostico pronostico = new Pronostico(partido, resultado);
+                
 
+                //Esto hay que verlo para calcular el puntaje de las personas
                 pronostico.resultadoPronostico(datos);
                 pronostico.calcularPuntajePronostico(pronostico.getPartido());
 

@@ -59,6 +59,7 @@ public class Pronostico {
                 .findAny()
                 .orElse(null);
         return partidoEncontrado;
+        //este es el metodo propuesto por el profe
         
         
         /*for (Partido p : partidos) {
@@ -66,7 +67,7 @@ public class Pronostico {
                     && p.getEquipo2().getNombre().equals(datos[6])) {
                 return p;
             }
-        }*/
+        } ESTE ES EL METODO QUE HABIA ARMADO PARA HACER LO MISMO*/ 
     }
 
 }
