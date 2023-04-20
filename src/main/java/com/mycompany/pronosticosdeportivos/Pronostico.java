@@ -26,21 +26,21 @@ public class Pronostico {
         return resultado;
     }
 
-    public int getPuntaje() {
+    /*public int getPuntaje() {
         return puntaje;
     }
 
     public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
-    }
+    }*/
 
-    public void resultadoPronostico(String[] datos) {
+    public static ResultadoEnum resultadoPronostico(String[] datos) {
         if (datos[3].toUpperCase().equals("X")) {
-            this.setResultado(ResultadoEnum.GANA_EQUIPO_1);
+            return ResultadoEnum.GANA_EQUIPO_1;
         } else if (datos[4].toUpperCase().equals("X")) {
-            this.setResultado(ResultadoEnum.EMPATE);
+            return ResultadoEnum.EMPATE;
         } else if (datos[5].toUpperCase().equals("X")) {
-            this.setResultado(ResultadoEnum.GANA_EQUIPO_2);
+            return ResultadoEnum.GANA_EQUIPO_2;
         }
     }
 
@@ -52,12 +52,13 @@ public class Pronostico {
         }
     }
 
-    public Partido buscarPartido(List<Partido> partidos, String[] datos) {
+    public static Partido buscarPartidoPorNombreEquipos(List<Partido> partidos, String[] datos) {
         Partido partidoEncontrado = partidos.stream()
                 .filter(partido -> partido.getEquipo1().getNombre().equals(datos[2])
-                && partido.getEquipo2().getNombre().equals(datos[6])
+                && partido.getEquipo2().getNombre().equals(datos[6]))
                 .findAny()
-                .orElse(null));
+                .orElse(null);
+        return partidoEncontrado;
         
         
         /*for (Partido p : partidos) {
