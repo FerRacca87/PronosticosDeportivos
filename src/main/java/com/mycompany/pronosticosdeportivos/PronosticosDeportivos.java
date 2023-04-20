@@ -1,5 +1,4 @@
 //Grupo 8
-
 package com.mycompany.pronosticosdeportivos;
 
 import java.io.IOException;
@@ -9,13 +8,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PronosticosDeportivos {
 
     public static void main(String[] args) throws IOException {
-        
-         List<Partido> partidos = new ArrayList<>();
+
+        List<Partido> partidos = new ArrayList<>();
         List<Pronostico> pronosticos = new ArrayList<>();
+        List<Ronda> rondas = new ArrayList<>();
         List<Persona> personas = new ArrayList<>();
 
         Path tablaResultados = Paths.get("archivoscsv\\resultados.csv");
@@ -26,8 +25,25 @@ public class PronosticosDeportivos {
             if (!primeraLinea) {
 
                 String[] datos = linea.split(",");
+                
+                int numeroRonda = Integer.valueOf(datos[0]);
 
-                //List<Ronda> rondas = new ArrayList<>();
+                if (datos.length != 5) {
+                    System.out.println("Error, el archivo no tiene la cantidad de columnas apropiada");
+                    return;//Finaliza el programa
+                }
+
+                Integer golesEquipo1 = 0;
+                Integer golesEquipo2 = 0;
+
+                try {
+                    golesEquipo1 = Integer.valueOf(datos[2]);
+                    golesEquipo2 = Integer.valueOf(datos[3]);
+                } catch (NumberFormatException exception) {
+                    System.out.println("Error, los goles no vienen como numero");
+                    return;
+                }
+
                 Equipo equipo1 = new Equipo(datos[1]);
                 Equipo equipo2 = new Equipo(datos[4]);
                 Partido partido = new Partido(equipo1, equipo2,
@@ -35,7 +51,10 @@ public class PronosticosDeportivos {
                         Integer.parseInt(datos[3]));
                 partido.decidirResultado();
 
+                Ronda ronda = new Ronda(numeroRonda);
+
                 partidos.add(partido);
+                
             }
             primeraLinea = false;
         }
@@ -46,14 +65,16 @@ public class PronosticosDeportivos {
 
                 String[] datos = linea.split(",");
 
+                Persona persona = new Persona(datos[0]);
+
                 Pronostico pronostico = new Pronostico();
-                pronostico.buscarPartido((ArrayList<Partido>) partidos, datos);
-                
+                pronostico.buscarPartido(partidos, datos);
 
                 pronostico.resultadoPronostico(datos);
                 pronostico.calcularPuntajePronostico(pronostico.getPartido());
 
                 pronosticos.add(pronostico);
+                personas.add(persona);
             }
             primeraLinea = false;
         }
@@ -63,13 +84,11 @@ public class PronosticosDeportivos {
             puntaje = Pronostico.calcularPuntajePronostico(puntaje, partidos.get(i),
                     pronosticos.get(i));
         }
-*/
+         */
         System.out.println("****************************");
         System.out.println("* PRODE ARGENTINA PROGRAMA *");
         System.out.println("****************************");
 
-       // System.out.println("Puntaje: " + puntaje);
-
-        
+        // System.out.println("Puntaje: " + puntaje);
     }
 }
