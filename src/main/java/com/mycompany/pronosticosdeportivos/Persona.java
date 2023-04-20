@@ -27,10 +27,6 @@ public class Persona {
         return pronosticos;
     }
 
-    public void setPronosticos(List<Pronostico> pronosticos) {
-        this.pronosticos = pronosticos;
-    }
-
     public int getPuntaje() {
         return puntaje;
     }

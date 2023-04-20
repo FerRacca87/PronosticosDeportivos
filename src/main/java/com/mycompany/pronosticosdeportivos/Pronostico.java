@@ -9,7 +9,7 @@ public class Pronostico {
     public static final int PUNTAJE_POR_ACIERTO = 1;
     private final Partido partido;
     private final ResultadoEnum resultado;
-    //private int puntaje;
+    private int puntaje;
 
     public Pronostico(Partido partido, ResultadoEnum resultado) {
         this.partido = partido;
