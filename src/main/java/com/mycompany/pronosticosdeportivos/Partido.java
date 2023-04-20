@@ -35,13 +35,13 @@ public class Partido {
         return resultado;
     }
 
-    public void decidirResultado() {
-        if (this.golesEquipo1 > this.golesEquipo2) {
-            this.resultado = ResultadoEnum.GANA_EQUIPO_1;
-        } else if (this.golesEquipo1 < this.golesEquipo2) {
-            this.resultado = ResultadoEnum.GANA_EQUIPO_2;
+    public ResultadoEnum decidirResultado(int golesEquipo1, int golesEquipo2) {
+        if (golesEquipo1 > golesEquipo2) {
+            return ResultadoEnum.GANA_EQUIPO_1;
+        } else if (golesEquipo1 < golesEquipo2) {
+            return ResultadoEnum.GANA_EQUIPO_2;
         } else {
-            this.resultado = ResultadoEnum.EMPATE;
+            return ResultadoEnum.EMPATE;
         }
     }
 

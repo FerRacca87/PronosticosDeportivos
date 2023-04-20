@@ -33,23 +33,23 @@ public class PronosticosDeportivos {
                     return;//Finaliza el programa
                 }
 
+                Equipo equipo1 = new Equipo(datos[1]);
+                Equipo equipo2 = new Equipo(datos[4]);
                 Integer golesEquipo1 = 0;
                 Integer golesEquipo2 = 0;
-
-                try {
+                
+               try {
                     golesEquipo1 = Integer.valueOf(datos[2]);
                     golesEquipo2 = Integer.valueOf(datos[3]);
                 } catch (NumberFormatException exception) {
                     System.out.println("Error, los goles no vienen como numero");
                     return;
                 }
-
-                Equipo equipo1 = new Equipo(datos[1]);
-                Equipo equipo2 = new Equipo(datos[4]);
-                Partido partido = new Partido(equipo1, equipo2,
-                        Integer.parseInt(datos[2]),
-                        Integer.parseInt(datos[3]));
-                partido.decidirResultado();
+               
+                ResultadoEnum resultado = Partido.decidirResultado(golesEquipo1, golesEquipo2);
+                
+                Partido partido = new Partido(equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
+               
 
                 Ronda ronda = new Ronda(numeroRonda);
 
