@@ -4,14 +4,14 @@ package com.mycompany.pronosticosdeportivos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Persona {
+public class Participante {
 
     private String nombre;
     List<Pronostico> pronosticos = new ArrayList<>();
     private int puntaje = 0;
     private int cantidadAciertos;
 
-    public Persona(String nombre) {
+    public Participante(String nombre) {
         this.nombre = nombre;
     }
 
@@ -31,13 +31,13 @@ public class Persona {
         return puntaje;
     }
 
-    /*public void setPuntaje(int puntaje) {
+    public void setPuntaje(int puntaje) {
         this.puntaje = puntaje;
-    }*/
+    }
     
     
 
-    public void calcularPuntajePersona() {
+    public void calcularPuntajeParticipante() {
         for (Pronostico p : this.pronosticos) {
             this.puntaje += p.getPuntaje();
         }

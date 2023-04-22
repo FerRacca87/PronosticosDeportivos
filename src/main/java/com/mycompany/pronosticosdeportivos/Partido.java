@@ -4,11 +4,12 @@ package com.mycompany.pronosticosdeportivos;
 public class Partido {
 
     private final Equipo equipo1, equipo2;
-    private final int golesEquipo1, golesEquipo2;
+    private final int golesEquipo1, golesEquipo2, numeroRonda;
 
     private ResultadoEnum resultado;
 
-    public Partido(Equipo equipo1, Equipo equipo2, int golesEquipo1, int golesEquipo2, ResultadoEnum resultado) {
+    public Partido(int numeroRonda, Equipo equipo1, Equipo equipo2, int golesEquipo1, int golesEquipo2, ResultadoEnum resultado) {
+        this.numeroRonda = numeroRonda;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
         this.golesEquipo1 = golesEquipo1;

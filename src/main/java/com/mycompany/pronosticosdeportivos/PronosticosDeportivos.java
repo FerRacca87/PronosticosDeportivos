@@ -15,7 +15,7 @@ public class PronosticosDeportivos {
         List<Partido> partidos = new ArrayList<>();
         List<Pronostico> pronosticos = new ArrayList<>();
         List<Ronda> rondas = new ArrayList<>();
-        List<Persona> personas = new ArrayList<>();
+        List<Participante> participantes = new ArrayList<>();
 
         Path tablaResultados = Paths.get("archivoscsv\\resultados.csv");
         Path tablaPronostico = Paths.get("archivoscsv\\pronostico.csv");
@@ -26,21 +26,18 @@ public class PronosticosDeportivos {
 
                 String[] datos = linea.split(",");
                 
-                int numeroRonda = Integer.valueOf(datos[0]);
-
                 if (datos.length != 5) {
                     System.out.println("Error, el archivo no tiene la cantidad de columnas apropiada");
                     return;//Finaliza el programa
                 }
-
-                /*Crea equipos con los datos del archivo resultados
-                y con los equipos y los goles crea el partido*/
+                
+                int numeroRonda = Integer.valueOf(datos[0]);
+                
                 Equipo equipo1 = new Equipo(datos[1]);
                 Equipo equipo2 = new Equipo(datos[4]);
                 Integer golesEquipo1 = 0;
                 Integer golesEquipo2 = 0;
                 
-               //Valida que los goles sean numeros enteros
                 try {
                     golesEquipo1 = Integer.valueOf(datos[2]);
                     golesEquipo2 = Integer.valueOf(datos[3]);
@@ -51,10 +48,11 @@ public class PronosticosDeportivos {
                
                 ResultadoEnum resultado = Partido.decidirResultado(golesEquipo1, golesEquipo2);
                 
-                Partido partido = new Partido(equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
+                Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
                
 
                 Ronda ronda = new Ronda(numeroRonda);
+                ronda.agregarPartido(partido);
                 /* Aca falta crear las rondas cuando el numero de ronda cambia en el archivo
                 hay que usar un metodo, agregar las rondas que se crean al ArrayList de rondas
                 y si la ronda ya esta creada, traerla para asignarle el otro partido
@@ -77,7 +75,7 @@ public class PronosticosDeportivos {
                 Y EN CASO QUE LA PERSONA YA ESTE CREADA, TRAERLA PARA ASIGNARLE UN NUEVO PRONOSTICO
                 HAY QUE AGREGAR DESPUES EL PRONOSTICO A LA LISTA DE PRONOSTICOS DE LA CLASE PERSONA
                 */
-                Persona persona = new Persona(datos[0]);
+                Participante participante = new Participante(datos[0]);
 
                 /*Busca el partido que coincida con los datos del pronostico y lo trae
                `para asignarlo al nuevo objeto pronostico
@@ -92,7 +90,7 @@ public class PronosticosDeportivos {
                 pronostico.calcularPuntajePronostico(pronostico.getPartido());
 
                 pronosticos.add(pronostico);
-                personas.add(persona);
+                participantes.add(participante);
             }
             primeraLinea = false;
         }
