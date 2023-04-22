@@ -31,11 +31,9 @@ public class Participante {
         this.puntaje = puntaje;
     }
     
-    public void calcularPuntajeParticipante() {
-        for (Pronostico p : this.pronosticos) {
-            this.puntaje += p.getPuntaje();
+    public int calcularPuntajeParticipante() {
+        return 0;
         }
-    }
     
     public void calcularAciertosParticipante(){
         

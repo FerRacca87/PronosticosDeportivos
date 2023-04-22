@@ -59,7 +59,6 @@ public class PronosticosDeportivos {
                     if (rondaEncontrada) {
                         Ronda ronda = Ronda.buscarRondaPorNumero(rondas, numeroRonda);
                         ronda.agregarPartido(partido);
-                        rondas.add(ronda);
                     } else {
                         Ronda ronda = new Ronda(numeroRonda);
                         ronda.agregarPartido(partido);
@@ -92,7 +91,6 @@ public class PronosticosDeportivos {
                     if (ParticipanteEncontrado) {
                         Participante participante = Participante.buscarParticipantePorNombre(participantes, nombreParticipante);
                         participante.agregarPronostico(pronostico);
-                        participantes.add(participante);
                     } else {
                         Participante participante = new Participante(nombreParticipante);
                         participante.agregarPronostico(pronostico);
@@ -118,6 +116,8 @@ public class PronosticosDeportivos {
         System.out.println("****************************");
         System.out.println("* PRODE ARGENTINA PROGRAMA *");
         System.out.println("****************************");
+        
+       
 
         // System.out.println("Puntaje: " + puntaje);
     }

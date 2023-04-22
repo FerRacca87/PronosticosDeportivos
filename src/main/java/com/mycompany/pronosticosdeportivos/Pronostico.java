@@ -40,15 +40,19 @@ public class Pronostico {
         } else if (datos[5].toUpperCase().equals("X")) {
             return ResultadoEnum.GANA_EQUIPO_2;
         }
+        return null;
+        /*Agregue el return null porque me marcaba error, si no se cumple ninguna condicion
+        algo tiene que devolver, quizas haya que hacer un try catch
+        */
     }
 
-    public void calcularPuntajePronostico(Partido partido) {
+    /*public void calcularPuntajePronostico(Partido partido) {
         if (partido.getResultado() == this.resultado) {
             this.puntaje = 1;
         } else {
             this.puntaje = 0;
         }
-    }
+    }*/
 
     public static Partido buscarPartidoPorNombreEquipos(List<Partido> partidos, String[] datos) {
         Partido partidoEncontrado = partidos.stream()
