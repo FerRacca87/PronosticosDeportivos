@@ -13,7 +13,7 @@ public class PronosticosDeportivos {
     public static void main(String[] args) throws IOException {
 
         List<Partido> partidos = new ArrayList<>();
-        List<Pronostico> pronosticos = new ArrayList<>();
+        //List<Pronostico> pronosticos = new ArrayList<>();
         List<Ronda> rondas = new ArrayList<>();
         List<Participante> participantes = new ArrayList<>();
 
@@ -25,19 +25,19 @@ public class PronosticosDeportivos {
             if (!primeraLinea) {
 
                 String[] datos = linea.split(",");
-                
+
                 if (datos.length != 5) {
                     System.out.println("Error, el archivo no tiene la cantidad de columnas apropiada");
                     return;//Finaliza el programa
                 }
-                
+
                 int numeroRonda = Integer.valueOf(datos[0]);
-                
+
                 Equipo equipo1 = new Equipo(datos[1]);
                 Equipo equipo2 = new Equipo(datos[4]);
                 Integer golesEquipo1 = 0;
                 Integer golesEquipo2 = 0;
-                
+
                 try {
                     golesEquipo1 = Integer.valueOf(datos[2]);
                     golesEquipo2 = Integer.valueOf(datos[3]);
@@ -45,30 +45,29 @@ public class PronosticosDeportivos {
                     System.out.println("Error, los goles no vienen como numero");
                     return;
                 }
-               
-                ResultadoEnum resultado = Partido.decidirResultado(golesEquipo1, golesEquipo2);
-                
-                Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
-               
 
-                if(rondas.isEmpty()){
+                ResultadoEnum resultado = Partido.decidirResultado(golesEquipo1, golesEquipo2);
+
+                Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
+
+                if (rondas.isEmpty()) {
                     Ronda ronda = new Ronda(numeroRonda);
                     ronda.agregarPartido(partido);
                     rondas.add(ronda);
                 } else {
                     boolean rondaEncontrada = Ronda.buscarCoincidenciaRonda(rondas, numeroRonda);
-                    if(rondaEncontrada){
-                    Ronda ronda = Ronda.buscarRondaPorNumero(rondas, numeroRonda);
-                    ronda.agregarPartido(partido);
-                    rondas.add(ronda);   
+                    if (rondaEncontrada) {
+                        Ronda ronda = Ronda.buscarRondaPorNumero(rondas, numeroRonda);
+                        ronda.agregarPartido(partido);
+                        rondas.add(ronda);
                     } else {
-                    Ronda ronda = new Ronda(numeroRonda);
-                    ronda.agregarPartido(partido);
-                    rondas.add(ronda);
+                        Ronda ronda = new Ronda(numeroRonda);
+                        ronda.agregarPartido(partido);
+                        rondas.add(ronda);
                     }
                 }
-                
-                partidos.add(partido);               
+
+                partidos.add(partido);
             }
             primeraLinea = false;
         }
@@ -78,30 +77,37 @@ public class PronosticosDeportivos {
             if (!primeraLinea) {
 
                 String[] datos = linea.split(",");
+                String nombreParticipante = datos[0];
 
-                /*FALTA CREAR EL METODO PARA AGREGAR UN NUEVO OBJETO PERSONA CUANDO NO ESTE CREADO
-                Y EN CASO QUE LA PERSONA YA ESTE CREADA, TRAERLA PARA ASIGNARLE UN NUEVO PRONOSTICO
-                HAY QUE AGREGAR DESPUES EL PRONOSTICO A LA LISTA DE PRONOSTICOS DE LA CLASE PERSONA
-                */
-                Participante participante = new Participante(datos[0]);
-
-                /*Busca el partido que coincida con los datos del pronostico y lo trae
-               `para asignarlo al nuevo objeto pronostico
-                */
                 Partido partido = Pronostico.buscarPartidoPorNombreEquipos(partidos, datos);
                 ResultadoEnum resultado = Pronostico.resultadoPronostico(datos);
                 Pronostico pronostico = new Pronostico(partido, resultado);
-                
 
-                //Esto hay que verlo para calcular el puntaje de las personas
-                pronostico.resultadoPronostico(datos);
-                pronostico.calcularPuntajePronostico(pronostico.getPartido());
-
-                pronosticos.add(pronostico);
-                participantes.add(participante);
+                if (participantes.isEmpty()) {
+                    Participante participante = new Participante(nombreParticipante);
+                    participante.agregarPronostico(pronostico);
+                    participantes.add(participante);
+                } else {
+                    boolean ParticipanteEncontrado = Participante.buscarCoincidenciaParticipante(participantes, nombreParticipante);
+                    if (ParticipanteEncontrado) {
+                        Participante participante = Participante.buscarParticipantePorNombre(participantes, nombreParticipante);
+                        participante.agregarPronostico(pronostico);
+                        participantes.add(participante);
+                    } else {
+                        Participante participante = new Participante(nombreParticipante);
+                        participante.agregarPronostico(pronostico);
+                        participantes.add(participante);
+                    }
+                }
             }
             primeraLinea = false;
         }
+        
+        
+        
+         //Esto hay que verlo para calcular el puntaje de las personas
+              //  pronostico.resultadoPronostico(datos);
+              //  pronostico.calcularPuntajePronostico(pronostico.getPartido());
 
         /*int puntaje = 0;
         for (int i = 0; i < partidos.size(); i++) {
