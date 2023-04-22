@@ -26,9 +26,9 @@ public class Participante {
     public int getPuntaje() {
         return puntaje;
     }
-
-    public void setPuntaje(int puntaje) {
-        this.puntaje = puntaje;
+    
+    public int getCantidadAciertos() {
+        return cantidadAciertos;
     }
     
     public int calcularPuntajeParticipante() {

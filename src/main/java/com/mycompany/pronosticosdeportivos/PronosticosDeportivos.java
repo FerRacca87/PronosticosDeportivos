@@ -116,7 +116,10 @@ public class PronosticosDeportivos {
         System.out.println("****************************");
         System.out.println("* PRODE ARGENTINA PROGRAMA *");
         System.out.println("****************************");
-        
+        System.out.println("\nNombre\tPuntaje\tAciertos");
+        for(Participante p : participantes){
+            System.out.println(p.getNombre() + "\t" + p.getPuntaje() + " \t" + p.getCantidadAciertos());
+        }
        
 
         // System.out.println("Puntaje: " + puntaje);
