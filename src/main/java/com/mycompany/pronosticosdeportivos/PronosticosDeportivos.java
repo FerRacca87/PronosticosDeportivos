@@ -51,16 +51,24 @@ public class PronosticosDeportivos {
                 Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
                
 
-                Ronda ronda = new Ronda(numeroRonda);
-                ronda.agregarPartido(partido);
-                /* Aca falta crear las rondas cuando el numero de ronda cambia en el archivo
-                hay que usar un metodo, agregar las rondas que se crean al ArrayList de rondas
-                y si la ronda ya esta creada, traerla para asignarle el otro partido
-                */
+                if(rondas.isEmpty()){
+                    Ronda ronda = new Ronda(numeroRonda);
+                    ronda.agregarPartido(partido);
+                    rondas.add(ronda);
+                } else {
+                    boolean rondaEncontrada = Ronda.buscarCoincidenciaRonda(rondas, numeroRonda);
+                    if(rondaEncontrada){
+                    Ronda ronda = Ronda.buscarRondaPorNumero(rondas, numeroRonda);
+                    ronda.agregarPartido(partido);
+                    rondas.add(ronda);   
+                    } else {
+                    Ronda ronda = new Ronda(numeroRonda);
+                    ronda.agregarPartido(partido);
+                    rondas.add(ronda);
+                    }
+                }
                 
-
-                partidos.add(partido);
-                
+                partidos.add(partido);               
             }
             primeraLinea = false;
         }
