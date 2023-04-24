@@ -31,12 +31,18 @@ public class Participante {
         return cantidadAciertos;
     }
     
-    public int calcularPuntajeParticipante() {
-        return 0;
+    public void calcularPuntajeParticipante(Participante participante) {
+        this.puntaje = this.cantidadAciertos * Pronostico.PUNTAJE_POR_ACIERTO;
         }
     
-    public void calcularAciertosParticipante(){
-        
+    public void calcularAciertosParticipante(Participante participante){
+        int aciertos = 0;
+        for (Pronostico p : participante.getPronosticos()){
+            if(p.getResultado() == p.getPartido().getResultado()){
+                aciertos += 1;
+            }
+        }
+        this.cantidadAciertos = aciertos;
     }
     
     public void agregarPronostico(Pronostico pronostico){

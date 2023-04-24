@@ -9,7 +9,6 @@ public class Pronostico {
     public static final int PUNTAJE_POR_ACIERTO = 1;
     private final Partido partido;
     private final ResultadoEnum resultado;
-    //private int puntaje;
 
     public Pronostico(Partido partido, ResultadoEnum resultado) {
         this.partido = partido;
@@ -24,14 +23,6 @@ public class Pronostico {
         return resultado;
     }
 
-    /*public int getPuntaje() {
-        return puntaje;
-    }
-
-    public void setPuntaje(int puntaje) {
-        this.puntaje = puntaje;
-    }*/
-
     public static ResultadoEnum resultadoPronostico(String[] datos) {
         if (datos[3].toUpperCase().equals("X")) {
             return ResultadoEnum.GANA_EQUIPO_1;
@@ -45,14 +36,6 @@ public class Pronostico {
         algo tiene que devolver, quizas haya que hacer un try catch
         */
     }
-
-    /*public void calcularPuntajePronostico(Partido partido) {
-        if (partido.getResultado() == this.resultado) {
-            this.puntaje = 1;
-        } else {
-            this.puntaje = 0;
-        }
-    }*/
 
     public static Partido buscarPartidoPorNombreEquipos(List<Partido> partidos, String[] datos) {
         Partido partidoEncontrado = partidos.stream()

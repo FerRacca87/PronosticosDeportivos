@@ -101,24 +101,18 @@ public class PronosticosDeportivos {
             primeraLinea = false;
         }
         
-        
-        
-         //Esto hay que verlo para calcular el puntaje de las personas
-              //  pronostico.resultadoPronostico(datos);
-              //  pronostico.calcularPuntajePronostico(pronostico.getPartido());
-
-        /*int puntaje = 0;
-        for (int i = 0; i < partidos.size(); i++) {
-            puntaje = Pronostico.calcularPuntajePronostico(puntaje, partidos.get(i),
-                    pronosticos.get(i));
+        for(Participante p : participantes){
+            p.calcularAciertosParticipante(p);
+            p.calcularPuntajeParticipante(p);
         }
-         */
+        
+        
         System.out.println("****************************");
         System.out.println("* PRODE ARGENTINA PROGRAMA *");
         System.out.println("****************************");
         System.out.println("\nNombre\tPuntaje\tAciertos");
         for(Participante p : participantes){
-            System.out.println(p.getNombre() + "\t" + p.getPuntaje() + " \t" + p.getCantidadAciertos());
+            System.out.println(p.getNombre() + "\t" + p.getPuntaje() + "\t" + p.getCantidadAciertos());
         }
        
 
