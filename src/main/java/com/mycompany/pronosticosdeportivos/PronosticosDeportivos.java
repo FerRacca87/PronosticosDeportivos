@@ -70,16 +70,18 @@ public class PronosticosDeportivos {
             }
             primeraLinea = false;
         }
+        
+        ConexionDB.cargarPronosticos(partidos, participantes);
 
-        primeraLinea = true;
+        /*primeraLinea = true;
         for (String linea : Files.readAllLines(tablaPronostico)) {
             if (!primeraLinea) {
 
                 String[] datos = linea.split(",");
                 String nombreParticipante = datos[0];
 
-                Partido partido = Pronostico.buscarPartidoPorNombreEquipos(partidos, datos);
-                ResultadoEnum resultado = Pronostico.resultadoPronostico(datos);
+                Partido partido = Pronostico.buscarPartidoPorNombreEquipos(partidos, datos[2], datos[6]);
+                ResultadoEnum resultado = Pronostico.resultadoPronostico(datos[3], datos[4], datos[5]);
                 Pronostico pronostico = new Pronostico(partido, resultado);
 
                 if (participantes.isEmpty()) {
@@ -99,7 +101,7 @@ public class PronosticosDeportivos {
                 }
             }
             primeraLinea = false;
-        }
+        }*/
         
         for(Participante p : participantes){
             p.calcularAciertosParticipante(p);
@@ -114,8 +116,5 @@ public class PronosticosDeportivos {
         for(Participante p : participantes){
             System.out.println(p.getNombre() + "\t" + p.getPuntaje() + "\t" + p.getCantidadAciertos());
         }
-       
-
-        // System.out.println("Puntaje: " + puntaje);
     }
 }

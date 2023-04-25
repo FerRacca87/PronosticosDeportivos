@@ -66,5 +66,24 @@ public class Participante {
         }
         return coincide;
     }
+    
+    public static void crearNuevoParticipante(String nombreParticipante, List<Participante> participantes,
+            Pronostico pronostico){
+         if (participantes.isEmpty()) {
+                    Participante participante = new Participante(nombreParticipante);
+                    participante.agregarPronostico(pronostico);
+                    participantes.add(participante);
+                } else {
+                    boolean ParticipanteEncontrado = Participante.buscarCoincidenciaParticipante(participantes, nombreParticipante);
+                    if (ParticipanteEncontrado) {
+                        Participante participante = Participante.buscarParticipantePorNombre(participantes, nombreParticipante);
+                        participante.agregarPronostico(pronostico);
+                    } else {
+                        Participante participante = new Participante(nombreParticipante);
+                        participante.agregarPronostico(pronostico);
+                        participantes.add(participante);
+                    }
+                }
+    }
 
 }

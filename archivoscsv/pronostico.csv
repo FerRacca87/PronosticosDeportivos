@@ -7,3 +7,7 @@ Pedro,1,Argentina,X,,,Arabia Saudita
 Pedro,1,Polonia,,,X,Mexico
 Pedro,2,Argentina,X,,,Mexico
 Pedro,2,Arabia Saudita,,X,,Polonia
+Andrea,1,Argentina,X,,,Arabia Saudita
+Andrea,1,Polonia,,X,,Mexico
+Andrea,2,Argentina,,X,,Mexico
+Andrea,2,Arabia Saudita,,,X,Polonia

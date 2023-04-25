@@ -2,4 +2,6 @@ Ronda,Equipo 1,Cant. Goles 1,Cant. Goles 2,Equipo 2
 1,Argentina,1,2,Arabia Saudita
 1,Polonia,0,0,Mexico
 2,Argentina,2,0,Mexico
-2,Arabia Saudita,0,2,Polonia
+2,Polonia,2,0,Arabia Saudita
+3,Arabia Saudita,1,2,Mexico
+3,Polonia,0,2,Argentina
