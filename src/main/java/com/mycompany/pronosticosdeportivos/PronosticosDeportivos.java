@@ -13,12 +13,10 @@ public class PronosticosDeportivos {
     public static void main(String[] args) throws IOException {
 
         List<Partido> partidos = new ArrayList<>();
-        //List<Pronostico> pronosticos = new ArrayList<>();
         List<Ronda> rondas = new ArrayList<>();
         List<Participante> participantes = new ArrayList<>();
 
         Path tablaResultados = Paths.get("archivoscsv\\resultados.csv");
-        Path tablaPronostico = Paths.get("archivoscsv\\pronostico.csv");
 
         boolean primeraLinea = true;
         for (String linea : Files.readAllLines(tablaResultados)) {
@@ -28,16 +26,16 @@ public class PronosticosDeportivos {
 
                 if (datos.length != 5) {
                     System.out.println("Error, el archivo no tiene la cantidad de columnas apropiada");
-                    return;//Finaliza el programa
+                    return;
                 }
 
                 int numeroRonda = Integer.valueOf(datos[0]);
 
                 Equipo equipo1 = new Equipo(datos[1]);
                 Equipo equipo2 = new Equipo(datos[4]);
+
                 Integer golesEquipo1 = 0;
                 Integer golesEquipo2 = 0;
-
                 try {
                     golesEquipo1 = Integer.valueOf(datos[2]);
                     golesEquipo2 = Integer.valueOf(datos[3]);
@@ -50,71 +48,43 @@ public class PronosticosDeportivos {
 
                 Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
 
-                if (rondas.isEmpty()) {
-                    Ronda ronda = new Ronda(numeroRonda);
-                    ronda.agregarPartido(partido);
-                    rondas.add(ronda);
-                } else {
-                    boolean rondaEncontrada = Ronda.buscarCoincidenciaRonda(rondas, numeroRonda);
-                    if (rondaEncontrada) {
-                        Ronda ronda = Ronda.buscarRondaPorNumero(rondas, numeroRonda);
-                        ronda.agregarPartido(partido);
-                    } else {
-                        Ronda ronda = new Ronda(numeroRonda);
-                        ronda.agregarPartido(partido);
-                        rondas.add(ronda);
-                    }
-                }
+                Ronda.cargarPartidoYRonda(rondas, numeroRonda, partido);
 
                 partidos.add(partido);
             }
             primeraLinea = false;
         }
-        
+
         ConexionDB.cargarPronosticos(partidos, participantes);
-
-        /*primeraLinea = true;
-        for (String linea : Files.readAllLines(tablaPronostico)) {
-            if (!primeraLinea) {
-
-                String[] datos = linea.split(",");
-                String nombreParticipante = datos[0];
-
-                Partido partido = Pronostico.buscarPartidoPorNombreEquipos(partidos, datos[2], datos[6]);
-                ResultadoEnum resultado = Pronostico.resultadoPronostico(datos[3], datos[4], datos[5]);
-                Pronostico pronostico = new Pronostico(partido, resultado);
-
-                if (participantes.isEmpty()) {
-                    Participante participante = new Participante(nombreParticipante);
-                    participante.agregarPronostico(pronostico);
-                    participantes.add(participante);
-                } else {
-                    boolean ParticipanteEncontrado = Participante.buscarCoincidenciaParticipante(participantes, nombreParticipante);
-                    if (ParticipanteEncontrado) {
-                        Participante participante = Participante.buscarParticipantePorNombre(participantes, nombreParticipante);
-                        participante.agregarPronostico(pronostico);
-                    } else {
-                        Participante participante = new Participante(nombreParticipante);
-                        participante.agregarPronostico(pronostico);
-                        participantes.add(participante);
-                    }
-                }
-            }
-            primeraLinea = false;
-        }*/
         
-        for(Participante p : participantes){
-            p.calcularAciertosParticipante(p);
-            p.calcularPuntajeParticipante(p);
+        for (Participante p : participantes) {
+            p.calcularAciertosParticipante();
+            p.calcularPuntajeParticipante();
         }
-        
-        
+
         System.out.println("****************************");
         System.out.println("* PRODE ARGENTINA PROGRAMA *");
         System.out.println("****************************");
+
         System.out.println("\nNombre\tPuntaje\tAciertos");
-        for(Participante p : participantes){
+
+        for (Participante p : participantes) {
             System.out.println(p.getNombre() + "\t" + p.getPuntaje() + "\t" + p.getCantidadAciertos());
         }
+
     }
 }
+
+/*
+CREAR CLASE CONFIGURACION
+{
+    "conexion": "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=CONVERT_TO_NULL",
+    "user": "root",
+    "password" : "root",
+    "puntosExtra" : 1,
+    "puntosAcierto": 2
+}
+Usar librerias Jackson
+Gson
+
+ */

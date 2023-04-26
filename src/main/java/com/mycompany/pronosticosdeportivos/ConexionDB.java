@@ -18,11 +18,14 @@ public class ConexionDB {
             ResultSet rs = stmt.executeQuery("SELECT * FROM pronosticos;");
             while (rs.next()) {
                 Partido partido = Pronostico.buscarPartidoPorNombreEquipos(partidos,
-                        rs.getString(4), rs.getString(8));
-                ResultadoEnum resultado = Pronostico.resultadoPronostico(rs.getString(5),
-                        rs.getString(6), rs.getString(7));
+                        rs.getString("equipo1"), rs.getString("equipo2"));
+               
+                ResultadoEnum resultado = Pronostico.resultadoPronostico(rs.getString("gana_equipo1"),
+                        rs.getString("empate"), rs.getString("gana_equipo2"));
+                
                 Pronostico pronostico = new Pronostico(partido, resultado);
-                Participante.crearNuevoParticipante(rs.getString(3),
+                
+                Participante.crearNuevoParticipante(rs.getString("participante"),
                         participantes, pronostico);
             }
             con.close();

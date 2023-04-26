@@ -9,7 +9,7 @@ import java.util.List;
 public class Fase {
     
     private final int numeroFase;
-    private final List<Ronda> rondas;
+    private List<Ronda> rondas;
 
     public Fase(int numeroFase, List <Ronda> rondas) {
         this.numeroFase = numeroFase;
@@ -24,8 +24,8 @@ public class Fase {
         return rondas;
     }
     
-    public void agregarRonda(){
-        
+    public void agregarRonda(Ronda ronda){
+        this.rondas.add(ronda);        
     }
 
 }

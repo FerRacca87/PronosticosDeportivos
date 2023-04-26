@@ -2,8 +2,15 @@
 package com.mycompany.pronosticosdeportivos;
 
 //@author Fernando Racca
+
+import java.util.List;
+
  
 public abstract class ReglasPuntosExtra {
+    
+      
+    
+    public abstract void calcularPuntosExtra();
     
     /*Supongo que se crean los metodos con las distintas reglas, y se
     los asocia con el metodo de calcular puntaje. Para que sume en 

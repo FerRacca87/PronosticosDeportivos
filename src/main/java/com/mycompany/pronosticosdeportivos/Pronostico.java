@@ -31,10 +31,7 @@ public class Pronostico {
         } else if (gana_equipo2.toUpperCase().equals("X")) {
             return ResultadoEnum.GANA_EQUIPO_2;
         }
-        return null;
-        /*Agregue el return null porque me marcaba error, si no se cumple ninguna condicion
-        algo tiene que devolver, quizas haya que hacer un try catch
-        */
+        return null;//Falta agregar una excepcion
     }
 
     public static Partido buscarPartidoPorNombreEquipos(List<Partido> partidos, String equipo1, String equipo2) {

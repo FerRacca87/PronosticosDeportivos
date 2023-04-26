@@ -21,12 +21,6 @@ public class Ronda {
     public List<Partido> getPartidos() {
         return partidos;
     }
-
-    public int calcularPuntajeRonda() {
-        int puntaje = 0;
-
-        return puntaje;
-    }
     
     public void agregarPartido(Partido partido){
         this.partidos.add(partido);
@@ -48,6 +42,18 @@ public class Ronda {
                 .findAny()
                 .orElse(null);
         return rondaEncontrada;
+    }
+    
+    public static void cargarPartidoYRonda(List<Ronda> rondas, int numeroRonda, Partido partido){
+        boolean rondaEncontrada = buscarCoincidenciaRonda(rondas, numeroRonda);
+                if (rondaEncontrada) {
+                    Ronda ronda = buscarRondaPorNumero(rondas, numeroRonda);
+                    ronda.agregarPartido(partido);
+                } else {
+                    Ronda ronda = new Ronda(numeroRonda);
+                    ronda.agregarPartido(partido);
+                    rondas.add(ronda);
+                }   
     }
 
 }
