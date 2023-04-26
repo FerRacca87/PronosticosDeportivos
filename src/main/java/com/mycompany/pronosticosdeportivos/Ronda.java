@@ -44,15 +44,15 @@ public class Ronda {
         return rondaEncontrada;
     }
     
-    public static void cargarPartidoYRonda(List<Ronda> rondas, int numeroRonda, Partido partido){
-        boolean rondaEncontrada = buscarCoincidenciaRonda(rondas, numeroRonda);
+    public static Ronda buscarRonda(int numeroRonda, Fase fase){
+        boolean rondaEncontrada = buscarCoincidenciaRonda(fase.getRondas(), numeroRonda);
                 if (rondaEncontrada) {
-                    Ronda ronda = buscarRondaPorNumero(rondas, numeroRonda);
-                    ronda.agregarPartido(partido);
+                    Ronda ronda = buscarRondaPorNumero(fase.getRondas(), numeroRonda);
+                    return ronda;
                 } else {
                     Ronda ronda = new Ronda(numeroRonda);
-                    ronda.agregarPartido(partido);
-                    rondas.add(ronda);
+                    fase.agregarRonda(ronda);
+                    return ronda;
                 }   
     }
 

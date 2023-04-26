@@ -13,8 +13,9 @@ public class PronosticosDeportivos {
     public static void main(String[] args) throws IOException {
 
         List<Partido> partidos = new ArrayList<>();
-        List<Ronda> rondas = new ArrayList<>();
+        //List<Ronda> rondas = new ArrayList<>();
         List<Participante> participantes = new ArrayList<>();
+        List<Fase> fases = new ArrayList<>();
 
         Path tablaResultados = Paths.get("archivoscsv\\resultados.csv");
 
@@ -23,22 +24,23 @@ public class PronosticosDeportivos {
             if (!primeraLinea) {
 
                 String[] datos = linea.split(",");
-
-                if (datos.length != 5) {
+                
+                if (datos.length != 6) {
                     System.out.println("Error, el archivo no tiene la cantidad de columnas apropiada");
                     return;
                 }
 
-                int numeroRonda = Integer.valueOf(datos[0]);
+                int numeroFase = Integer.valueOf(datos[0]);               
+                int numeroRonda = Integer.valueOf(datos[1]);
 
-                Equipo equipo1 = new Equipo(datos[1]);
-                Equipo equipo2 = new Equipo(datos[4]);
+                Equipo equipo1 = new Equipo(datos[2]);
+                Equipo equipo2 = new Equipo(datos[5]);
 
                 Integer golesEquipo1 = 0;
                 Integer golesEquipo2 = 0;
                 try {
-                    golesEquipo1 = Integer.valueOf(datos[2]);
-                    golesEquipo2 = Integer.valueOf(datos[3]);
+                    golesEquipo1 = Integer.valueOf(datos[3]);
+                    golesEquipo2 = Integer.valueOf(datos[4]);
                 } catch (NumberFormatException exception) {
                     System.out.println("Error, los goles no vienen como numero");
                     return;
@@ -48,8 +50,11 @@ public class PronosticosDeportivos {
 
                 Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
 
-                Ronda.cargarPartidoYRonda(rondas, numeroRonda, partido);
-
+                Fase fase = Fase.buscarFase(fases, numeroFase);
+                Ronda ronda = Ronda.buscarRonda(numeroRonda, fase);
+                
+                ronda.agregarPartido(partido);
+                
                 partidos.add(partido);
             }
             primeraLinea = false;

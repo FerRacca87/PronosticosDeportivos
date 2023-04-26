@@ -10,6 +10,8 @@ public class Participante {
     private List<Pronostico> pronosticos = new ArrayList<>();
     private int puntaje;
     private int cantidadAciertos;
+    private int puntosExtraRonda;
+    private int puntosExtraFase;
 
     public Participante(String nombre) {
         this.nombre = nombre;
