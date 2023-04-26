@@ -5,7 +5,6 @@ public class Partido {
 
     private final Equipo equipo1, equipo2;
     private final int golesEquipo1, golesEquipo2, numeroRonda;
-
     private ResultadoEnum resultado;
 
     public Partido(int numeroRonda, Equipo equipo1, Equipo equipo2, int golesEquipo1, int golesEquipo2, ResultadoEnum resultado) {
@@ -15,6 +14,10 @@ public class Partido {
         this.golesEquipo1 = golesEquipo1;
         this.golesEquipo2 = golesEquipo2;
         this.resultado = resultado;
+    }
+
+    public int getNumeroRonda() {
+        return numeroRonda;
     }
 
     public Equipo getEquipo1() {

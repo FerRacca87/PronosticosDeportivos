@@ -29,13 +29,12 @@ public class Fase {
     }
     
     public static boolean buscarCoincidenciaFase(List<Fase> fases, int numeroFase){
-        boolean coincide = false;
         for(Fase f : fases){
             if(f.getNumeroFase() == numeroFase){
-                coincide = true;
+                return true;
             } 
         }
-        return coincide;
+        return false;
     }
     
     public static Fase buscarFasePorNumero(List<Fase> fases, int numeroFase){

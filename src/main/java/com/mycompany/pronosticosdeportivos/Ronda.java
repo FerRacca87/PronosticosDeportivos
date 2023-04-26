@@ -27,13 +27,12 @@ public class Ronda {
     }
     
     public static boolean buscarCoincidenciaRonda(List<Ronda> rondas, int numeroRonda){
-        boolean coincide = false;
         for(Ronda r : rondas){
             if(r.getNumeroRonda() == numeroRonda){
-                coincide = true;
+                return true;
             } 
         }
-        return coincide;
+        return false;
     }
     
     public static Ronda buscarRondaPorNumero(List<Ronda> rondas, int numeroRonda){
@@ -54,6 +53,12 @@ public class Ronda {
                     fase.agregarRonda(ronda);
                     return ronda;
                 }   
+    }
+    
+    public void puntosExtraRonda(Participante participante){
+        for(Pronostico p : participante.getPronosticos()){
+           p.getPartido().getNumeroRonda();
+        }
     }
 
 }

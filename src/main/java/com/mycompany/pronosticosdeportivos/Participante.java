@@ -39,8 +39,8 @@ public class Participante {
 
     public void calcularAciertosParticipante() {
         int aciertos = 0;
-        for (Pronostico p : this.getPronosticos()) {
-            if (p.getResultado() == p.getPartido().getResultado()) {
+        for (Pronostico pron : this.getPronosticos()) {
+            if (pron.getResultado() == pron.getPartido().getResultado()) {
                 aciertos += 1;
             }
         }
@@ -60,25 +60,23 @@ public class Participante {
     }
 
     public static boolean buscarCoincidenciaParticipante(List<Participante> participantes, String nombre) {
-        boolean coincide = false;
         for (Participante p : participantes) {
             if (p.getNombre().equals(nombre)) {
-                coincide = true;
+                return true;
             }
         }
-        return coincide;
+        return false;
     }
 
-    public static void crearNuevoParticipante(String nombreParticipante, List<Participante> participantes,
-            Pronostico pronostico) {
+    public static Participante buscarParticipante(String nombreParticipante, List<Participante> participantes){
         boolean ParticipanteEncontrado = buscarCoincidenciaParticipante(participantes, nombreParticipante);
         if (ParticipanteEncontrado) {
             Participante participante = buscarParticipantePorNombre(participantes, nombreParticipante);
-            participante.agregarPronostico(pronostico);
+            return participante;
         } else {
             Participante participante = new Participante(nombreParticipante);
-            participante.agregarPronostico(pronostico);
             participantes.add(participante);
+            return participante;
         }
     }
 

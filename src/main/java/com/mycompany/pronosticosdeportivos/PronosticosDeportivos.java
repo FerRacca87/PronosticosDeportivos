@@ -16,7 +16,7 @@ public class PronosticosDeportivos {
         //List<Ronda> rondas = new ArrayList<>();
         List<Participante> participantes = new ArrayList<>();
         List<Fase> fases = new ArrayList<>();
-
+        
         Path tablaResultados = Paths.get("archivoscsv\\resultados.csv");
 
         boolean primeraLinea = true;
@@ -32,6 +32,9 @@ public class PronosticosDeportivos {
 
                 int numeroFase = Integer.valueOf(datos[0]);               
                 int numeroRonda = Integer.valueOf(datos[1]);
+                
+                Fase fase = Fase.buscarFase(fases, numeroFase);
+                Ronda ronda = Ronda.buscarRonda(numeroRonda, fase);
 
                 Equipo equipo1 = new Equipo(datos[2]);
                 Equipo equipo2 = new Equipo(datos[5]);
@@ -49,9 +52,6 @@ public class PronosticosDeportivos {
                 ResultadoEnum resultado = Partido.decidirResultado(golesEquipo1, golesEquipo2);
 
                 Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
-
-                Fase fase = Fase.buscarFase(fases, numeroFase);
-                Ronda ronda = Ronda.buscarRonda(numeroRonda, fase);
                 
                 ronda.agregarPartido(partido);
                 
