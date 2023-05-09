@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class PronosticosDeportivos {
@@ -13,10 +14,10 @@ public class PronosticosDeportivos {
     public static void main(String[] args) throws IOException {
 
         List<Partido> partidos = new ArrayList<>();
-        //List<Ronda> rondas = new ArrayList<>();
         List<Participante> participantes = new ArrayList<>();
-        List<Fase> fases = new ArrayList<>();
-        
+        List<Grupo> grupos = new ArrayList<>();
+        List<Equipo> equipos = new ArrayList<>();
+
         Path tablaResultados = Paths.get("archivoscsv\\resultados.csv");
 
         boolean primeraLinea = true;
@@ -24,20 +25,22 @@ public class PronosticosDeportivos {
             if (!primeraLinea) {
 
                 String[] datos = linea.split(",");
-                
+
                 if (datos.length != 6) {
                     System.out.println("Error, el archivo no tiene la cantidad de columnas apropiada");
+                    System.out.println("Columnas esperadas: 6");
+                    System.out.println("Columnas del archivo: " + datos.length);
                     return;
                 }
 
-                int numeroFase = Integer.valueOf(datos[0]);               
+                String grupo = (datos[0]);
                 int numeroRonda = Integer.valueOf(datos[1]);
-                
-                Fase fase = Fase.buscarFase(fases, numeroFase);
-                Ronda ronda = Ronda.buscarRonda(numeroRonda, fase);
 
-                Equipo equipo1 = new Equipo(datos[2]);
-                Equipo equipo2 = new Equipo(datos[5]);
+                Grupo g = Grupo.buscarGrupo(grupos, grupo);
+                Ronda ronda = Ronda.buscarRonda(numeroRonda, g);
+
+                Equipo equipo1 = Equipo.buscarEquipo(equipos, datos[2]);
+                Equipo equipo2 = Equipo.buscarEquipo(equipos, datos[5]);
 
                 Integer golesEquipo1 = 0;
                 Integer golesEquipo2 = 0;
@@ -52,31 +55,56 @@ public class PronosticosDeportivos {
                 ResultadoEnum resultado = Partido.decidirResultado(golesEquipo1, golesEquipo2);
 
                 Partido partido = new Partido(numeroRonda, equipo1, equipo2, golesEquipo1, golesEquipo2, resultado);
-                
+
                 ronda.agregarPartido(partido);
-                
+
                 partidos.add(partido);
             }
             primeraLinea = false;
         }
 
+        int numeroDeRondas = 0;
+        for (int i = 0; i < grupos.size(); i++) {
+            if (i == 0) {
+                numeroDeRondas = grupos.get(i).getRondas().size();
+            } else if (numeroDeRondas != grupos.get(i).getRondas().size()) {
+                System.out.println("Las rondas no son todas iguales");
+                return;
+            }
+        }
+
         ConexionDB.cargarPronosticos(partidos, participantes);
-        
+
         for (Participante p : participantes) {
             p.calcularAciertosParticipante();
+            for (Equipo e : equipos) {
+                p.puntosExtraEquipoPorGrupo(numeroDeRondas, e.getNombre());
+            }
+            p.puntosExtraRonda(grupos);
             p.calcularPuntajeParticipante();
         }
 
+//p.puntosExtraEquipoPorGrupo(Grupo.buscarGrupoPorLetra(grupos, "C"), "Argentina");
+        //p.puntosExtraRonda(g.getRondas());
         System.out.println("****************************");
         System.out.println("* PRODE ARGENTINA PROGRAMA *");
         System.out.println("****************************");
 
-        System.out.println("\nNombre\tPuntaje\tAciertos");
-
+        
         for (Participante p : participantes) {
-            System.out.println(p.getNombre() + "\t" + p.getPuntaje() + "\t" + p.getCantidadAciertos());
+            System.out.println(p.getNombre() + ":");
+            System.out.println("Cantidad de aciertos: " + p.getCantidadAciertos());
+            System.out.println("Puntos Extra Ronda: " + p.getPuntosExtraRonda());
+            System.out.println("Puntos Extra Equipo/Grupo: " + p.getPuntosExtraGrupo());
+            System.out.println("****************************");
         }
-
+        
+        participantes.sort(Comparator.comparing(Participante::getPuntaje).reversed());
+        
+        System.out.println("Tabla:\nNombre\tTotal");
+        for(Participante p : participantes){
+            System.out.println(p.getNombre() + "\t" + p.getPuntaje());
+        }
     }
 }
 

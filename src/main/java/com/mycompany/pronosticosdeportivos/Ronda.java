@@ -43,22 +43,16 @@ public class Ronda {
         return rondaEncontrada;
     }
     
-    public static Ronda buscarRonda(int numeroRonda, Fase fase){
-        boolean rondaEncontrada = buscarCoincidenciaRonda(fase.getRondas(), numeroRonda);
+    public static Ronda buscarRonda(int numeroRonda, Grupo grupo){
+        boolean rondaEncontrada = buscarCoincidenciaRonda(grupo.getRondas(), numeroRonda);
                 if (rondaEncontrada) {
-                    Ronda ronda = buscarRondaPorNumero(fase.getRondas(), numeroRonda);
+                    Ronda ronda = buscarRondaPorNumero(grupo.getRondas(), numeroRonda);
                     return ronda;
                 } else {
                     Ronda ronda = new Ronda(numeroRonda);
-                    fase.agregarRonda(ronda);
+                    grupo.agregarRonda(ronda);
                     return ronda;
                 }   
-    }
-    
-    public void puntosExtraRonda(Participante participante){
-        for(Pronostico p : participante.getPronosticos()){
-           p.getPartido().getNumeroRonda();
-        }
     }
 
 }

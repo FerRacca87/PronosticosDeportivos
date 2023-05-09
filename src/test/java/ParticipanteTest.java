@@ -18,30 +18,29 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Fernando Racca
  */
 public class ParticipanteTest {
-    
+
     public ParticipanteTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
-        
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
-    
+
     @Test
-    public void probarBuscarPorNombreEncontrado(){
-        
+    public void probarBuscarPorNombreEncontrado() {
+
         Participante marcos = new Participante("Marcos");
         Participante juana = new Participante("Juana");
         Participante pedro = new Participante("Pedro");
@@ -49,15 +48,15 @@ public class ParticipanteTest {
         participantes.add(marcos);
         participantes.add(juana);
         participantes.add(pedro);
-        
+
         Participante p = Participante.buscarParticipantePorNombre(participantes, "Juana");
-        
+
         assertEquals(juana, p);
     }
-    
+
     @Test
-    public void probarBuscarPorNombreNoEncontrado(){
-        
+    public void probarBuscarPorNombreNoEncontrado() {
+
         Participante marcos = new Participante("Marcos");
         Participante juana = new Participante("Juana");
         Participante pedro = new Participante("Pedro");
@@ -65,14 +64,14 @@ public class ParticipanteTest {
         participantes.add(marcos);
         participantes.add(juana);
         participantes.add(pedro);
-        
+
         Participante p = Participante.buscarParticipantePorNombre(participantes, "Julieta");
-        
+
         assertEquals(null, p);
     }
-    
+
     @Test
-    public void probarCoincidenciaTrue(){
+    public void probarCoincidenciaTrue() {
         Participante marcos = new Participante("Marcos");
         Participante juana = new Participante("Juana");
         Participante pedro = new Participante("Pedro");
@@ -80,14 +79,14 @@ public class ParticipanteTest {
         participantes.add(marcos);
         participantes.add(juana);
         participantes.add(pedro);
-        
+
         boolean coincidencia = Participante.buscarCoincidenciaParticipante(participantes, "Pedro");
-        
-        assertEquals(true, coincidencia);   
+
+        assertEquals(true, coincidencia);
     }
-    
+
     @Test
-    public void probarCoincidenciaFalse(){
+    public void probarCoincidenciaFalse() {
         Participante marcos = new Participante("Marcos");
         Participante juana = new Participante("Juana");
         Participante pedro = new Participante("Pedro");
@@ -95,9 +94,9 @@ public class ParticipanteTest {
         participantes.add(marcos);
         participantes.add(juana);
         participantes.add(pedro);
-        
+
         boolean coincidencia = Participante.buscarCoincidenciaParticipante(participantes, "Andrea");
-        
-        assertEquals(false, coincidencia); 
+
+        assertEquals(false, coincidencia);
     }
 }

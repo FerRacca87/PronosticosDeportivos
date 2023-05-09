@@ -1,7 +1,49 @@
-Fase,Ronda,Equipo 1,Cant. Goles 1,Cant. Goles 2,Equipo 2
-1,1,Argentina,1,2,Arabia Saudita
-1,1,Polonia,0,0,Mexico
-1,2,Argentina,2,0,Mexico
-1,2,Polonia,2,0,Arabia Saudita
-1,3,Arabia Saudita,1,2,Mexico
-1,3,Polonia,0,2,Argentina
+GRUPO,Ronda,Equipo 1,Cant. Goles 1,Cant. Goles 2,Equipo 2
+A,1,Catar,0,2,Ecuador
+A,1,Senegal,0,2,Paises Bajos
+A,2,Catar,1,3,Senegal
+A,2,Paises Bajos,1,1,Ecuador
+A,3,Ecuador,1,2,Senegal
+A,3,Paises Bajos,2,0,Catar
+B,1,Inglaterra,6,2,Iran
+B,1,Estados Unidos,1,1,Gales
+B,2,Gales,0,2,Iran
+B,2,Inglaterra,0,0,Estados Unidos
+B,3,Iran,0,1,Estados Unidos
+B,3,Gales,0,3,Inglaterra
+C,1,Argentina,1,2,Arabia Saudita
+C,1,Mexico,0,0,Polonia
+C,2,Argentina,2,0,Mexico
+C,2,Polonia,2,0,Arabia Saudita
+C,3,Arabia Saudita,1,2,Mexico
+C,3,Polonia,0,2,Argentina
+D,1,Dinamarca,0,0,Tunez
+D,1,Francia,4,1,Australia
+D,2,Tunez,0,1,Australia
+D,2,Francia,2,1,Dinamarca
+D,3,Tunez,1,0,Francia
+D,3,Australia,1,0,Dinamarca
+E,1,Alemania,1,2,Japon
+E,1,Espania,7,0,Costa Rica
+E,2,Japon,0,1,Costa Rica
+E,2,Espania,1,1,Alemania
+E,3,Japon,2,1,Espania
+E,3,Costa Rica,2,4,Alemania
+F,1,Marruecos,0,0,Croacia
+F,1,Belgica,1,0,Canada
+F,2,Belgica,0,2,Marruecos
+F,2,Croacia,4,0,Canada
+F,3,Croacia,0,0,Belgica
+F,3,Canada,1,2,Marruecos
+G,1,Suiza,1,0,Camerun
+G,1,Brasil,2,0,Serbia
+G,2,Camerun,3,3,Serbia
+G,2,Brasil,1,0,Suiza
+G,3,Serbia,2,3,Suiza
+G,3,Camerun,1,0,Brasil
+H,1,Uruguay,0,0,Corea del Sur
+H,1,Portugal,3,2,Ghana
+H,2,Corea del Sur,2,3,Ghana
+H,2,Portugal,2,0,Uruguay
+H,3,Corea del Sur,2,1,Portugal
+H,3,Ghana,0,2,Uruguay

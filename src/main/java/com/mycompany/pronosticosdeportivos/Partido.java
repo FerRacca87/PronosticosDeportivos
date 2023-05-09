@@ -1,6 +1,9 @@
 package com.mycompany.pronosticosdeportivos;
 
 //@author Fernando Racca
+
+import java.util.List;
+
 public class Partido {
 
     private final Equipo equipo1, equipo2;
@@ -31,11 +34,11 @@ public class Partido {
     public int getGolesEquipo1() {
         return golesEquipo1;
     }
-    
+
     public int getGolesEquipo2() {
         return golesEquipo2;
     }
-    
+
     public ResultadoEnum getResultado() {
         return resultado;
     }
@@ -48,6 +51,27 @@ public class Partido {
         } else {
             return ResultadoEnum.EMPATE;
         }
+    }
+
+    public boolean buscarEquipoPorNombre(String nombre) {
+        if (this.equipo1.getNombre().equals(nombre)
+                || this.equipo2.getNombre().equals(nombre)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public Partido buscarPartidoEnRonda(List<Ronda> rondas){
+        for(Ronda r : rondas){
+            for(Partido p : r.getPartidos()){
+                if(this.getEquipo1().getNombre().equals(p.getEquipo1().getNombre())
+                        && this.getEquipo2().getNombre().equals(p.getEquipo2().getNombre())
+                                && this.getNumeroRonda() == p.getNumeroRonda());
+                return p;
+            }
+        }
+        return null;
     }
 
 }

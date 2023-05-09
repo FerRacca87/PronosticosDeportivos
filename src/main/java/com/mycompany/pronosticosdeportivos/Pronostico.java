@@ -7,6 +7,8 @@ import java.util.List;
 public class Pronostico {
 
     public static final int PUNTAJE_POR_ACIERTO = 1;
+    public static final int PUNTAJE_EXTRA_RONDA = 2;
+    public static final int PUNTAJE_EXTRA_GRUPO = 2;
     private final Partido partido;
     private final ResultadoEnum resultado;
 
@@ -31,7 +33,7 @@ public class Pronostico {
         } else if (gana_equipo2.toUpperCase().equals("X")) {
             return ResultadoEnum.GANA_EQUIPO_2;
         }
-        return null;//Falta agregar una excepcion
+        return null;
     }
 
     public static Partido buscarPartidoPorNombreEquipos(List<Partido> partidos, String equipo1, String equipo2) {
@@ -42,14 +44,26 @@ public class Pronostico {
                 .orElse(null);
         return partidoEncontrado;
         //este es el metodo propuesto por el profe
-        
-        
+
         /*for (Partido p : partidos) {
             if (p.getEquipo1().getNombre().equals(datos[2])
                     && p.getEquipo2().getNombre().equals(datos[6])) {
                 return p;
             }
-        } ESTE ES EL METODO QUE HABIA ARMADO PARA HACER LO MISMO*/ 
+        } ESTE ES EL METODO QUE HABIA ARMADO PARA HACER LO MISMO*/
     }
+
+    public static Pronostico buscarPronostico(List<Pronostico> pronosticos, Partido partido) {
+        Pronostico pronosticoEncontrado = pronosticos.stream()
+                .filter(pronostico -> pronostico.getPartido().getEquipo1().getNombre()
+                .equals(partido.getEquipo1().getNombre())
+                && pronostico.getPartido().getEquipo2().getNombre()
+                        .equals(partido.getEquipo2().getNombre()) &&
+                        pronostico.getPartido().getNumeroRonda() == partido.getNumeroRonda())
+                        .findAny()
+                        .orElse(null);
+        return pronosticoEncontrado;
+    }
+
 
 }
